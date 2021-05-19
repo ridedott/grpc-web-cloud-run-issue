@@ -2,7 +2,7 @@
 
 **Bring up envoy:**
 ```
-dc up
+docker-compose up
 ```
 
 **Open index.html in your browser**
