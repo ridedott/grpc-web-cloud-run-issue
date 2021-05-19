@@ -1,0 +1,15 @@
+version: '3'
+services:
+  envoy:
+    image: envoyproxy/envoy-dev:19210537c7169ed7c8560cdaf16f9b3590db3215
+    ports:
+      - "9000:8080"
+    volumes:
+      - ./envoy.yaml:/etc/envoy/envoy.yaml
+#    links:
+#      - server
+    command: ["-c", "/etc/envoy/envoy.yaml", "-l", "debug"]
+#  server:
+#    build: .
+#    ports:
+#      - "8080:8080"

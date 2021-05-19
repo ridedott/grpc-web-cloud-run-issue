@@ -1,0 +1,29 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  annotations:
+    run.googleapis.com/ingress: internal-and-cloud-load-balancing
+  name: grpc-web-test
+spec:
+  template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/maxScale: '1'
+        autoscaling.knative.dev/minScale: '1'
+        run.googleapis.com/launch-stage: ALPHA
+        run.googleapis.com/sandbox: minivm
+    spec:
+      containerConcurrency: 250
+      containers:
+        - image: europe-west1-docker.pkg.dev/com-ridedott-test/grpc-web-test/server:123
+          ports:
+            - containerPort: 8080
+              name: h2c
+          resources:
+            limits:
+              cpu: '1'
+              memory: 1Gi
+      timeoutSeconds: 3600
+  traffic:
+    - latestRevision: true
+      percent: 100
