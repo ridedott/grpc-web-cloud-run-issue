@@ -20,8 +20,6 @@ var PROTO_PATH = __dirname + '/helloworld.proto';
 
 var fs = require('fs');
 var assert = require('assert');
-var async = require('async');
-var _ = require('lodash');
 var grpc = require('@grpc/grpc-js');
 var protoLoader = require('@grpc/proto-loader');
 var packageDefinition = protoLoader.loadSync(
@@ -44,27 +42,6 @@ function doSayHello(call, callback) {
     code: 400,
     message: "invalid input",
     status: grpc.status.INTERNAL
-  });
-}
-
-/**
- * @param {!Object} call
- */
-function doSayRepeatHello(call) {
-  var senders = [];
-  function sender(name) {
-    return (callback) => {
-      call.write({
-        message: 'Hey! ' + name
-      });
-      _.delay(callback, 500); // in ms
-    };
-  }
-  for (var i = 0; i < call.request.count; i++) {
-    senders[i] = sender(call.request.name + i);
-  }
-  async.series(senders, () => {
-    call.end();
   });
 }
 
