@@ -51,7 +51,6 @@ function getServer() {
   var server = new grpc.Server();
   server.addService(helloworld.Greeter.service, {
     sayHello: doSayHello,
-    sayRepeatHello: doSayRepeatHello,
   });
   return server;
 }

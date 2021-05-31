@@ -19,6 +19,7 @@
 var PROTO_PATH = __dirname + '/helloworld.proto';
 
 var fs = require('fs');
+var path = require('path');
 var assert = require('assert');
 var grpc = require('@grpc/grpc-js');
 var protoLoader = require('@grpc/proto-loader');
@@ -52,7 +53,6 @@ function getServer() {
   var server = new grpc.Server();
   server.addService(helloworld.Greeter.service, {
     sayHello: doSayHello,
-    sayRepeatHello: doSayRepeatHello,
   });
   return server;
 }
@@ -60,11 +60,11 @@ function getServer() {
 if (require.main === module) {
   var server = getServer();
   server.bindAsync(
-    '0.0.0.0:8080', grpc.ServerCredentials.createSsl(
-      fs.readFileSync('./certs/ca.crt'),
+    '0.0.0.0:443', grpc.ServerCredentials.createSsl(
+      fs.readFileSync(path.join(__dirname, './certs/ca.crt')),
       [{
-        private_key: fs.readFileSync('./certs/server.key'),
-        cert_chain: fs.readFileSync('./certs/server.crt'),
+        private_key: fs.readFileSync(path.join(__dirname, './certs/server.key')),
+        cert_chain: fs.readFileSync(path.join(__dirname, './certs/server.crt')),
       }],
       false,
     ), (err, port) => {

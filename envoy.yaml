@@ -46,7 +46,7 @@ static_resources:
               - endpoint:
                   address:
                     socket_address:
-                      address: grpc-web-test-snpekwsqaa-ez.a.run.app
+                      address: server
                       port_value: 443
       name: echo_service
       transport_socket:
