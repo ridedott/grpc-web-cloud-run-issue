@@ -2,7 +2,7 @@ apiVersion: serving.knative.dev/v1
 kind: Service
 metadata:
   annotations:
-    run.googleapis.com/ingress: internal-and-cloud-load-balancing
+    run.googleapis.com/ingress: all
   name: grpc-web-test
 spec:
   template:
@@ -15,7 +15,7 @@ spec:
     spec:
       containerConcurrency: 250
       containers:
-        - image: europe-west1-docker.pkg.dev/com-ridedott-test/grpc-web-test/server:123
+        - image: europe-west1-docker.pkg.dev/com-ridedott-test/grpc-web-test/server:1.0.4
           ports:
             - containerPort: 8080
               name: h2c

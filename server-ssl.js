@@ -40,7 +40,7 @@ var helloworld = protoDescriptor.helloworld;
  */
 function doSayHello(call, callback) {
   callback({
-    code: 400,
+    code: 200,
     message: "invalid input",
     status: grpc.status.INTERNAL
   });
